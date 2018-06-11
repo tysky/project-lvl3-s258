@@ -14,3 +14,5 @@ make install
 ```sh
 make develop
 ```
+
+### [Live application](http://lean-window.surge.sh/)
