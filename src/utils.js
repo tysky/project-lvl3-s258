@@ -3,18 +3,25 @@ import { getURLs } from './state';
 
 const checkDouble = (url, state) => getURLs(state).includes(url);
 
-export const checkInput = (event, state) => {
-  const inputEL = event.target;
+const isValidInput = (event, state) => {
   if (checkDouble(event.target.value, state)) {
-    inputEL.classList.add('is-invalid');
-    return;
+    return false;
   }
   if (!isURL(event.target.value)) {
-    inputEL.classList.add('is-invalid');
-  } else {
+    return false;
+  }
+  return true;
+};
+
+export const checkInput = (event, state) => {
+  const inputEL = event.target;
+  if (isValidInput(event, state)) {
     inputEL.classList.remove('is-invalid');
+  } else {
+    inputEL.classList.add('is-invalid');
   }
 };
+
 
 export const fillFeedItems = items => [...items].map(item =>
   ({
