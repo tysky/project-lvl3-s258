@@ -5,7 +5,7 @@ import { renderChannels, renderArticles, renderErrorMsg } from './views';
 import { checkInput, fillFeedItems } from './utils';
 
 
-const loadRSSFeed = (url) => {
+const loadRSSFeed = (url, state) => {
   axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
     .then(res => res.data)
     .then((data) => {
@@ -26,7 +26,7 @@ const loadRSSFeed = (url) => {
         desc,
         items: fillFeedItems(items),
       };
-      addNewFeed(feed);
+      addNewFeed(feed, state);
       return feed;
     })
     .then((feed) => {
@@ -38,7 +38,7 @@ const loadRSSFeed = (url) => {
     });
 };
 
-const addRSSFeed = (event) => {
+const addRSSFeed = (event, state) => {
   event.preventDefault();
   const form = event.target;
   const inputEl = form.querySelector('input');
@@ -48,12 +48,12 @@ const addRSSFeed = (event) => {
   }
   const rssURL = inputEl.value;
   inputEl.value = '';
-  loadRSSFeed(rssURL);
+  loadRSSFeed(rssURL, state);
 };
 
-export default () => {
+export default (state) => {
   const inputEl = document.getElementById('rssLinkInput');
-  inputEl.addEventListener('input', e => checkInput(e));
+  inputEl.addEventListener('input', e => checkInput(e, state));
   const formEl = document.querySelector('form');
-  formEl.addEventListener('submit', e => addRSSFeed(e));
+  formEl.addEventListener('submit', e => addRSSFeed(e, state));
 };

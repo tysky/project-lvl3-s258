@@ -7,8 +7,8 @@
 //       items: { title: '', link: '' },
 //     }];
 
-const state = [];
+// const state = [];
 
-export const getURLs = () => state.reduce((acc, value) => [...acc, value.url], []);
+export const getURLs = state => state.reduce((acc, value) => [...acc, value.url], []);
 
-export const addNewFeed = feed => state.push(feed);
+export const addNewFeed = (feed, state) => state.push(feed);

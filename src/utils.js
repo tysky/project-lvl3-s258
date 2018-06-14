@@ -1,11 +1,11 @@
 import isURL from 'validator/lib/isURL';
 import { getURLs } from './state';
 
-const checkDouble = url => getURLs().includes(url);
+const checkDouble = (url, state) => getURLs(state).includes(url);
 
-export const checkInput = (event) => {
+export const checkInput = (event, state) => {
   const inputEL = event.target;
-  if (checkDouble(event.target.value)) {
+  if (checkDouble(event.target.value, state)) {
     inputEL.classList.add('is-invalid');
     return;
   }
