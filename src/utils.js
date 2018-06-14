@@ -4,6 +4,9 @@ import { getURLs } from './state';
 const checkDouble = (url, state) => getURLs(state).includes(url);
 
 const isValidInput = (event, state) => {
+  if (event.target.value.length === 0) {
+    return true;
+  }
   if (checkDouble(event.target.value, state)) {
     return false;
   }

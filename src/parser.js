@@ -3,6 +3,13 @@ import { renderChannels, renderArticles, renderErrorMsg } from './views';
 import { fillFeedItems } from './utils';
 import { addNewFeed } from './state';
 
+const disableForm = (formEl) => {
+  const inputEl = formEl.querySelector('input');
+  const buttonEl = formEl.querySelector('button');
+  inputEl.removeAttribute('disabled');
+  buttonEl.removeAttribute('disabled');
+};
+
 
 const parseRSS = url => axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
   .then(res => res.data)
@@ -15,7 +22,7 @@ const parseRSS = url => axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
     return rssDoc;
   });
 
-const loadRSSFeed = (url, state) => {
+const loadRSSFeed = (url, state, formEl) => {
   parseRSS(url)
     .then((rssDoc) => {
       const title = rssDoc.querySelector('title').textContent;
@@ -34,20 +41,28 @@ const loadRSSFeed = (url, state) => {
       renderChannels(feed);
       feed.items.forEach(item => renderArticles(item));
     })
+    .then(() => {
+      disableForm(formEl);
+      const inputEl = formEl.querySelector('input');
+      inputEl.value = '';
+    })
     .catch((err) => {
+      disableForm(formEl);
       renderErrorMsg(`${err.message}. Try again.`);
     });
 };
 
 export default (event, state) => {
   event.preventDefault();
-  const form = event.target;
-  const inputEl = form.querySelector('input');
+  const formEl = event.target;
+  const inputEl = formEl.querySelector('input');
   if (inputEl.classList.contains('is-invalid')) {
     alert('Invalid URL!. Try again'); // eslint-disable-line no-alert
     return;
   }
+  inputEl.setAttribute('disabled', '');
+  const buttonEl = formEl.querySelector('button');
+  buttonEl.setAttribute('disabled', '');
   const rssURL = inputEl.value;
-  inputEl.value = '';
-  loadRSSFeed(rssURL, state);
+  loadRSSFeed(rssURL, state, formEl);
 };

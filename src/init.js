@@ -1,5 +1,5 @@
 import { checkInput } from './utils';
-import { addRSSFeed } from './parser';
+import addRSSFeed from './parser';
 
 
 export default (state) => {
