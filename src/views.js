@@ -1,5 +1,4 @@
-
-export const renderChannels = (feed) => {
+const renderChannels = (feed) => {
   const channelsList = document.querySelector('.channels-list');
   const liEl = document.createElement('li');
   const { title, desc } = feed;
@@ -9,7 +8,7 @@ export const renderChannels = (feed) => {
   channelsList.append(liEl);
 };
 
-export const renderArticles = ({ title, link }) => {
+const renderArticles = ({ title, link }) => {
   const articlesList = document.querySelector('.articles-list');
   const aEl = document.createElement('a');
   const linkTitle = document.createTextNode(title);
@@ -20,6 +19,14 @@ export const renderArticles = ({ title, link }) => {
   articlesList.append(aEl);
 };
 
+export const render = (state) => {
+  document.querySelector('.channels-list').innerHTML = '';
+  document.querySelector('.articles-list').innerHTML = '';
+  state.forEach((feed) => {
+    renderChannels(feed);
+    feed.items.forEach(item => renderArticles(item));
+  });
+};
 
 export const renderErrorMsg = (msg) => {
   const alertBlock = `<div class="alert alert-danger alert-dismissible fade show" role="alert">

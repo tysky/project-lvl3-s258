@@ -1,3 +1,6 @@
+import WatchJS from 'melanke-watchjs';
+import { render } from './views';
+
 
 // state scheme
 //     [{
@@ -7,8 +10,13 @@
 //       items: { title: '', link: '' },
 //     }];
 
-// const state = [];
+export const state = [];
 
-export const getURLs = state => state.reduce((acc, value) => [...acc, value.url], []);
+const { watch } = WatchJS;
+watch(state, () => {
+  render(state);
+});
 
-export const addNewFeed = (feed, state) => state.push(feed);
+export const getURLs = stateData => stateData.reduce((acc, value) => [...acc, value.url], []);
+
+export const addNewFeed = (feed, stateData) => stateData.push(feed);

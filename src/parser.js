@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { renderChannels, renderArticles, renderErrorMsg } from './views';
+import { renderErrorMsg } from './views';
 import { fillFeedItems } from './utils';
 import { addNewFeed } from './state';
 
@@ -36,10 +36,6 @@ const loadRSSFeed = (url, state, formEl) => {
       };
       addNewFeed(feed, state);
       return feed;
-    })
-    .then((feed) => {
-      renderChannels(feed);
-      feed.items.forEach(item => renderArticles(item));
     })
     .then(() => {
       disableForm(formEl);
