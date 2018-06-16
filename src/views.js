@@ -52,3 +52,10 @@ export const renderErrorMsg = (msg) => {
     </div>`;
   document.querySelector('.error-field').innerHTML = alertBlock;
 };
+
+export const disableForm = (formEl) => {
+  const inputEl = formEl.querySelector('input');
+  const buttonEl = formEl.querySelector('button');
+  inputEl.removeAttribute('disabled');
+  buttonEl.removeAttribute('disabled');
+};
