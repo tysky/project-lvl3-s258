@@ -54,7 +54,7 @@ export const renderErrorMsg = (msg) => {
   document.querySelector('.error-field').innerHTML = alertBlock;
 };
 
-export const disableForm = (formEl) => {
+export const enableForm = (formEl) => {
   const inputEl = formEl.querySelector('input');
   const buttonEl = formEl.querySelector('button');
   inputEl.removeAttribute('disabled');
@@ -64,10 +64,12 @@ export const disableForm = (formEl) => {
 export const checkInput = (event, state) => {
   const inputEL = event.target;
   isValidInput(inputEL.value, state);
-  // if (isValidInput(inputEL.value, state)) {
+  const buttonEl = document.querySelector('button[type=submit]');
   if (state.isValidUrl) {
     inputEL.classList.remove('is-invalid');
+    buttonEl.removeAttribute('disabled');
   } else {
     inputEL.classList.add('is-invalid');
+    buttonEl.setAttribute('disabled', '');
   }
 };
