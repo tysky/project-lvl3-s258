@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import WatchJS from 'melanke-watchjs';
+// import WatchJS from 'melanke-watchjs';
 
-import { render } from './views';
+// import { render } from './views';
 
 
 // state scheme
@@ -20,12 +20,6 @@ export const getState = () => {
     isValidUrl: false,
     rssFeeds: [],
   };
-
-  const { watch } = WatchJS;
-  watch(state, () => {
-    render(state);
-  });
-
   return state;
 };
 
