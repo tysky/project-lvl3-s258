@@ -73,3 +73,21 @@ export const checkInput = (event, state) => {
     buttonEl.setAttribute('disabled', '');
   }
 };
+
+export const handleFormSuccessRes = (formEl) => {
+  enableForm(formEl);
+  const inputEl = formEl.querySelector('input');
+  inputEl.value = '';
+};
+
+export const handleFormFailRes = (formEl, err) => {
+  enableForm(formEl);
+  renderErrorMsg(`${err.message}. Try again.`);
+};
+
+export const handleFormBeforeLoading = (formEl) => {
+  const inputEl = formEl.querySelector('input');
+  inputEl.setAttribute('disabled', '');
+  const buttonEl = formEl.querySelector('button');
+  buttonEl.setAttribute('disabled', '');
+};

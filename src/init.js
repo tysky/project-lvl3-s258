@@ -1,23 +1,18 @@
-import { checkInput, enableForm, renderErrorMsg } from './views';
+import { checkInput, handleFormBeforeLoading, handleFormSuccessRes, handleFormFailRes } from './views';
 import loadRSSFeed from './parser';
 
 
 const addRSSFeed = (event, state) => {
   event.preventDefault();
   const formEl = event.target;
-  const inputEl = formEl.querySelector('input');
-  inputEl.setAttribute('disabled', '');
-  const buttonEl = formEl.querySelector('button');
-  buttonEl.setAttribute('disabled', '');
-  const rssURL = inputEl.value;
+  handleFormBeforeLoading(formEl);
+  const rssURL = formEl.querySelector('input').value;
   loadRSSFeed(rssURL, state, formEl)
     .then(() => {
-      enableForm(formEl);
-      inputEl.value = '';
+      handleFormSuccessRes(formEl);
     })
     .catch((err) => {
-      enableForm(formEl);
-      renderErrorMsg(`${err.message}. Try again.`);
+      handleFormFailRes(formEl, err);
     });
 };
 
