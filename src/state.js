@@ -1,8 +1,4 @@
 import _ from 'lodash';
-// import WatchJS from 'melanke-watchjs';
-
-// import { render } from './views';
-
 
 // state scheme
 // {
@@ -11,8 +7,8 @@ import _ from 'lodash';
 //       url: '',
 //       title: '',
 //       desc: '',
-//       items: [{ title: '', description: '', link: '', guid: '' }],
-//     }]
+//       items: [{ title: '', description: '', link: '', guid: '' }, ],
+//     }, ]
 // }
 
 export const getState = () => {

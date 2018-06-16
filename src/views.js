@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-import { getArticleByGuid } from './state';
+import { getArticleByGuid, setStateValid } from './state';
 import { isValidInput } from './utils';
 
 const renderChannels = (feed) => {
@@ -63,7 +63,7 @@ export const enableForm = (formEl) => {
 
 export const checkInput = (event, state) => {
   const inputEL = event.target;
-  isValidInput(inputEL.value, state);
+  setStateValid(state, isValidInput(inputEL.value, state));
   const buttonEl = document.querySelector('button[type=submit]');
   if (state.isValidUrl) {
     inputEL.classList.remove('is-invalid');
