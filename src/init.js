@@ -1,5 +1,4 @@
-import { checkInput } from './utils';
-import { renderErrorMsg, disableForm } from './views';
+import { checkInput, disableForm, renderErrorMsg } from './views';
 import loadRSSFeed from './parser';
 
 

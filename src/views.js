@@ -1,6 +1,7 @@
 import $ from 'jquery';
 
 import { getArticleByGuid } from './state';
+import { isValidInput } from './utils';
 
 const renderChannels = (feed) => {
   const channelsList = document.querySelector('.channels-list');
@@ -36,7 +37,7 @@ const modalHandling = (state) => {
 export const render = (state) => {
   document.querySelector('.channels-list').innerHTML = '';
   document.querySelector('.articles-list').innerHTML = '';
-  state.forEach((feed) => {
+  state.rssFeeds.forEach((feed) => {
     renderChannels(feed);
     feed.items.forEach(item => renderArticles(item));
   });
@@ -58,4 +59,15 @@ export const disableForm = (formEl) => {
   const buttonEl = formEl.querySelector('button');
   inputEl.removeAttribute('disabled');
   buttonEl.removeAttribute('disabled');
+};
+
+export const checkInput = (event, state) => {
+  const inputEL = event.target;
+  isValidInput(inputEL.value, state);
+  // if (isValidInput(inputEL.value, state)) {
+  if (state.isValidUrl) {
+    inputEL.classList.remove('is-invalid');
+  } else {
+    inputEL.classList.add('is-invalid');
+  }
 };

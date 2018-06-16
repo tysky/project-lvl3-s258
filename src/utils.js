@@ -1,27 +1,17 @@
 import isURL from 'validator/lib/isURL';
-import { getURLs } from './state';
+import { getURLs, setStateValid } from './state';
 
 const checkDouble = (url, state) => getURLs(state).includes(url);
 
-const isValidInput = (inputUrl, state) => {
+export const isValidInput = (inputUrl, state) => {
   if (inputUrl.length === 0) {
-    return true;
-  }
-  if (checkDouble(inputUrl, state)) {
-    return false;
-  }
-  if (!isURL(inputUrl)) {
-    return false;
-  }
-  return true;
-};
-
-export const checkInput = (event, state) => {
-  const inputEL = event.target;
-  if (isValidInput(inputEL.value, state)) {
-    inputEL.classList.remove('is-invalid');
+    setStateValid(state, true);
+  } else if (checkDouble(inputUrl, state)) {
+    setStateValid(state, false);
+  } else if (!isURL(inputUrl)) {
+    setStateValid(state, false);
   } else {
-    inputEL.classList.add('is-invalid');
+    setStateValid(state, true);
   }
 };
 

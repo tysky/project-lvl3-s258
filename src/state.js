@@ -5,15 +5,21 @@ import { render } from './views';
 
 
 // state scheme
-//     [{
+// {
+//     isValidUrl: false,
+//     rssFeeds: [{
 //       url: '',
 //       title: '',
 //       desc: '',
 //       items: [{ title: '', description: '', link: '', guid: '' }],
-//     }];
+//     }]
+// }
 
 export const getState = () => {
-  const state = [];
+  const state = {
+    isValidUrl: false,
+    rssFeeds: [],
+  };
 
   const { watch } = WatchJS;
   watch(state, () => {
@@ -24,9 +30,13 @@ export const getState = () => {
 };
 
 
-export const getURLs = state => state.reduce((acc, value) => [...acc, value.url], []);
+export const getURLs = state => state.rssFeeds.reduce((acc, value) => [...acc, value.url], []);
 
-export const addNewFeed = (feed, state) => state.push(feed);
+export const addNewFeed = (feed, state) => state.rssFeeds.push(feed);
 
 export const getArticleByGuid = (guid, state) =>
-  _.find(_.flatten(state.map(feed => feed.items)), o => o.guid === guid);
+  _.find(_.flatten(state.rssFeeds.map(feed => feed.items)), o => o.guid === guid);
+
+export const setStateValid = (state, isValid) => {
+  state.isValidUrl = isValid; // eslint-disable-line no-param-reassign
+};
