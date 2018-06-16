@@ -25,7 +25,7 @@ const renderArticles = ({ title, link, guid }) => {
 const modalHandling = (state) => {
   $('#modalCenter').on('show.bs.modal', (event) => {
     const button = $(event.relatedTarget);
-    const articleGuid = button.data('guid');
+    const articleGuid = String(button.data('guid'));
     const modal = $(event.currentTarget);
     const { title, description, link } = getArticleByGuid(articleGuid, state);
     modal.find('.modal-title').text(title);

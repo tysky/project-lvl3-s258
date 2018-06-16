@@ -20,7 +20,7 @@ export const isValidInput = (inputUrl, state) => {
 export const fillFeedItems = items => [...items].map((item) => {
   const attributes = ['title', 'description', 'link', 'guid'];
   const itemAttrs = attributes.reduce((acc, value) => {
-    const attr = { [value]: item.querySelector(`${value}`).textContent };
+    const attr = { [value]: String(item.querySelector(`${value}`).textContent) };
     return { ...acc, ...attr };
   }, {});
   return itemAttrs;
