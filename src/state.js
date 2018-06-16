@@ -12,16 +12,21 @@ import { render } from './views';
 //       items: [{ title: '', description: '', link: '', guid: '' }],
 //     }];
 
-export const state = [];
+export const getState = () => {
+  const state = [];
 
-const { watch } = WatchJS;
-watch(state, () => {
-  render(state);
-});
+  const { watch } = WatchJS;
+  watch(state, () => {
+    render(state);
+  });
 
-export const getURLs = stateData => stateData.reduce((acc, value) => [...acc, value.url], []);
+  return state;
+};
 
-export const addNewFeed = (feed, stateData) => stateData.push(feed);
 
-export const getArticleByGuid = (guid, stateData) =>
-  _.find(_.flatten(stateData.map(feed => feed.items)), o => o.guid === guid);
+export const getURLs = state => state.reduce((acc, value) => [...acc, value.url], []);
+
+export const addNewFeed = (feed, state) => state.push(feed);
+
+export const getArticleByGuid = (guid, state) =>
+  _.find(_.flatten(state.map(feed => feed.items)), o => o.guid === guid);
