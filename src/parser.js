@@ -3,7 +3,7 @@ import { fillFeedItems } from './utils';
 import { addNewFeed } from './state';
 
 
-const parseRSS = url => axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
+export const parseRSS = url => axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
   .then(res => res.data)
   .then((data) => {
     const parser = new DOMParser();

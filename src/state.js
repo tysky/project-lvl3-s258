@@ -24,6 +24,11 @@ export const getURLs = state => state.rssFeeds.reduce((acc, value) => [...acc, v
 
 export const addNewFeed = (feed, state) => state.rssFeeds.push(feed);
 
+export const addNewArticles = (feedUrl, newItems, state) => {
+  const feed = _.find(state.rssFeeds, f => f.url === feedUrl);
+  feed.items = _.unionWith(feed.items, newItems, _.isEqual);
+};
+
 export const getArticleByGuid = (guid, state) =>
   _.find(_.flatten(state.rssFeeds.map(feed => feed.items)), o => o.guid === guid);
 
