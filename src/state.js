@@ -35,3 +35,12 @@ export const getArticleByGuid = (guid, state) =>
 export const setStateValid = (state, isValid) => {
   state.isValidUrl = isValid; // eslint-disable-line no-param-reassign
 };
+
+export const fillFeedItems = items => [...items].map((item) => {
+  const attributes = ['title', 'description', 'link', 'guid'];
+  const itemAttrs = attributes.reduce((acc, value) => {
+    const attr = { [value]: String(item.querySelector(`${value}`).textContent) };
+    return { ...acc, ...attr };
+  }, {});
+  return itemAttrs;
+});

@@ -1,15 +1,11 @@
 import { checkInput, handleFormBeforeLoading, handleFormSuccessRes, handleFormFailRes, renderErrorMsg } from './views';
-import loadRSSFeed, { parseRSS } from './parser';
-import { addNewArticles } from './state';
-import { fillFeedItems } from './utils';
+import loadRSSFeed, { updateRSSFeed } from './parser';
 
 
-const updateRSSFeed = (url, state) => {
-  parseRSS(url)
-    .then((rssDoc) => {
-      const items = fillFeedItems(rssDoc.querySelectorAll('item'));
-      addNewArticles(url, items, state);
-      window.setTimeout(() => updateRSSFeed(url, state), 5000);
+const updateFeed = (url, state) => {
+  updateRSSFeed(url, state)
+    .then(() => {
+      setTimeout(() => updateFeed(url, state), 5000);
     })
     .catch((err) => {
       renderErrorMsg(`${err.message}. Try again.`);
@@ -24,7 +20,7 @@ const addRSSFeed = (event, state) => {
   loadRSSFeed(rssURL, state, formEl)
     .then(() => {
       handleFormSuccessRes(formEl);
-      window.setTimeout(() => updateRSSFeed(rssURL, state), 5000);
+      setTimeout(() => updateFeed(rssURL, state), 5000);
     })
     .catch((err) => {
       handleFormFailRes(formEl, err);

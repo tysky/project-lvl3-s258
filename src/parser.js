@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { fillFeedItems } from './utils';
-import { addNewFeed } from './state';
+import { addNewFeed, addNewArticles, fillFeedItems } from './state';
 
 
 export const parseRSS = url => axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
@@ -12,6 +11,12 @@ export const parseRSS = url => axios.get(`https://cors-anywhere.herokuapp.com/${
       return Promise.reject(new Error('Error while parsing XML document'));
     }
     return rssDoc;
+  });
+
+export const updateRSSFeed = (url, state) => parseRSS(url)
+  .then((rssDoc) => {
+    const items = fillFeedItems(rssDoc.querySelectorAll('item'));
+    addNewArticles(url, items, state);
   });
 
 export default (url, state) => parseRSS(url)

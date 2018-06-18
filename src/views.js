@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 import { getArticleByGuid, setStateValid } from './state';
-import { isValidInput } from './utils';
+import isValidInput from './utils';
 
 const renderChannels = (feed) => {
   const channelsList = document.querySelector('.channels-list');

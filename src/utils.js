@@ -3,7 +3,8 @@ import { getURLs } from './state';
 
 const checkDouble = (url, state) => getURLs(state).includes(url);
 
-export const isValidInput = (inputUrl, state) => {
+// is valid input?
+export default (inputUrl, state) => {
   if (inputUrl.length === 0) {
     return true;
   }
@@ -15,14 +16,3 @@ export const isValidInput = (inputUrl, state) => {
   }
   return true;
 };
-
-
-export const fillFeedItems = items => [...items].map((item) => {
-  const attributes = ['title', 'description', 'link', 'guid'];
-  const itemAttrs = attributes.reduce((acc, value) => {
-    const attr = { [value]: String(item.querySelector(`${value}`).textContent) };
-    return { ...acc, ...attr };
-  }, {});
-  return itemAttrs;
-});
-
