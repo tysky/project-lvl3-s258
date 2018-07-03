@@ -91,3 +91,9 @@ export const handleFormBeforeLoading = (formEl) => {
   const buttonEl = formEl.querySelector('button');
   buttonEl.setAttribute('disabled', '');
 };
+
+export const handleExampleLink = (e) => {
+  e.preventDefault();
+  const inputEl = document.querySelector('input');
+  inputEl.value = e.target.textContent;
+};

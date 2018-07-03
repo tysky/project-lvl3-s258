@@ -1,4 +1,4 @@
-import { checkInput, handleFormBeforeLoading, handleFormSuccessRes, handleFormFailRes, renderErrorMsg } from './views';
+import { checkInput, handleFormBeforeLoading, handleFormSuccessRes, handleFormFailRes, handleExampleLink, renderErrorMsg } from './views';
 import loadRSSFeed, { updateRSSFeed } from './parser';
 
 
@@ -28,6 +28,8 @@ const addRSSFeed = (event, state) => {
 };
 
 export default (state) => {
+  const exampleLinks = document.querySelectorAll('.exampleURL');
+  exampleLinks.forEach(link => link.addEventListener('click', e => handleExampleLink(e)));
   const inputEl = document.getElementById('rssLinkInput');
   inputEl.addEventListener('input', e => checkInput(e, state));
   const formEl = document.querySelector('form');
